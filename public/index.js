@@ -1,8 +1,13 @@
-const fullList = document.getElementById('fullList');
+window.onload = () => displayFullList();
+
+
+//html element assignments
 const displayData = document.getElementById('displayData');
 
-fullList.onclick = () => displayFullList();
+//button assignments
+const fullList = document.getElementById('fullList');
 
+//all titles button funcs
 async function fetchAllBooks() {
   let url = '/books';
   const response = await fetch(url);
@@ -15,7 +20,7 @@ async function displayFullList() {
   let bookList = payload.map((book) => {
     const { title, pub_year } = book;
 
-    return`
+    return `
     <div id="displayData">
         <p>Title: ${title}</p>
         <p>Published: ${pub_year}</p>

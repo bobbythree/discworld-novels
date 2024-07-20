@@ -1,12 +1,18 @@
 import express from 'express'
 import { getBooks, getBook, getTitlesAndSubseries } from './database.js'
+import { fileURLToPath } from 'url'
+import path from 'path'
+
 
 const app = express();
+const __dirname = import.meta.dirname;
 app.use(express.json());
+app.use(express.static(path.join(__dirname, 'public')));
 
-app.get('/', (req, res) => {
-  res.send('home page');
-})
+
+// app.get('/', (req, res) => {
+//   app.sendFile();  
+// });
 
 app.get('/books', async (req, res) => {
   const books = await getBooks();
@@ -26,8 +32,8 @@ app.get('/subseries', async (req, res) => {
 });
 
 app.use((err, req, res, next) => {
-  console.error(err.stack)
-  res.status(500).send('Book not found!')
+  console.error(err.stack);
+  res.status(500).send('Something broke!')
 });
 
 app.listen(8080, () => {

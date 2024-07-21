@@ -10,6 +10,6 @@ h3 {
   color: rgb(99, 146, 99);
 }
 
-.search-label {
-  color: rgb(182, 182, 182);
+#button-div {
+  padding: 2rem 0;
 }

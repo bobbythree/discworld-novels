@@ -1,17 +1,16 @@
-// import { searchDatabase } from '../database';
-
-window.onload = () => displayFullList();
-
-
 //html element assignments
 const displayData = document.getElementById('display-data');
 const searchForm = document.getElementById('search-form');
 const searchInput = document.getElementById('search-input');
 
 //button assignments
-const fullList = document.getElementById('fullList');
+const fullListBtn = document.getElementById('full-list-btn');
+const subseriesBtn = document.getElementById('subseries-btn');
+const characterBtn = document.getElementById('character-btn');
 
 //all titles button funcs
+fullListBtn.onclick = () => displayFullList();
+
 async function fetchAllBooks() {
   let url = '/books';
   const response = await fetch(url);
@@ -36,23 +35,51 @@ async function displayFullList() {
   displayData.style.color = 'gray';
 }
 
-//forms
-const title = searchInput.value;
-// searchForm.action = `./search/${title}`;
+//titles and subsreies btn funcs
+subseriesBtn.onclick = () => displayAllSubseries();
 
-searchForm.onsubmit = (e) => {  
-  getSearchResults();  
-  e.preventDefault();
+async function fetchAllSubseries() {
+  let url = '/subseries';
+  const response = await fetch(url);
+  const data = await response.json();
+  return data; 
 }
 
-async function getSearchResults() {  
+async function displayAllSubseries() {
+  const payload = await fetchAllSubseries();
+  let bookList = payload.map((book) => {
+    const { title, subseries } = book;
+
+    return `
+    <div id="display-data">
+        <p>Title: ${title}</p>
+        <p>Subseries: ${subseries}</p>
+      </div>
+      `
+  }).join('~~~~~~~~~~~~~~~~~~~~~~~~~~');
+
+  displayData.innerHTML = bookList;
+  displayData.style.color = 'gray';
+}
+
+//forms
+// searchForm.action = `./search/${title}`;
+
+searchForm.onsubmit = (e) => {   
+  const title = searchInput.value;
+  e.preventDefault();
+  console.log(title)
+  
+}
+
+async function getSearchResults(title) {  
   const response = await fetch(`./search/${title}`)
   const data = await response.json();
   return data;
 }
 
-async function displaySearchResults() {
-  const payload = await getSearchResults();  
-  displayData.innerHTML = payload; 
-  };
+// async function displaySearchResults(title) {
+//   const payload = await getSearchResults(title);  
+//   displayData.innerHTML = payload; 
+//   };
 

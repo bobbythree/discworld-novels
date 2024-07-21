@@ -1,5 +1,5 @@
 import express from 'express'
-import { getBooks, getBook, getTitlesAndSubseries, getTitleAndSubseries } from './database.js'
+import { getBooks, getBook, getTitlesAndSubseries, getTitleAndSubseries, searchDatabase } from './database.js'
 import { fileURLToPath } from 'url'
 import path from 'path'
 
@@ -39,6 +39,13 @@ app.get('/subseries/:id', async (req, res) => {
   const subseries = await getTitleAndSubseries(id);
   res.send(subseries);
 });
+
+//search
+app.get('/search/:title', async (req, res) => {
+  const title = req.params.title;
+  const result = await searchDatabase(title);
+  res.send(result);
+})
 
 //error handling
 app.use((err, req, res, next) => {

@@ -44,3 +44,11 @@ export async function getTitleAndSubseries(id) {
   const rows = result[0];
   return rows[0];
 }
+
+export async function searchDatabase(title) {
+  const result = await pool.query(
+    `SELECT * from books WHERE title = ?`, [title]
+  );
+  const rows = result[0];
+  return rows[0];
+}

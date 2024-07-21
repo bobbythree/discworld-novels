@@ -10,8 +10,12 @@
 <body>
   <h1>The Novels of Discworld</h1>
   <h3>by Terry Pratchett</h3>
-  
-  <div id="displayData"></div>
+  <form id="search-form" method="get">
+    <!-- <label for="input" class="search-label">search</label> -->
+    <input id="search-input" type="text" name="input" placeholder="type name of book" autocomplete="off">
+    <button type="submit">submit</button>
+  </form>
+  <div id="display-data"></div>
 
   <script src="index.js" type="module"></script>
 </body>

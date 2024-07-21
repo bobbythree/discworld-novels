@@ -2,6 +2,14 @@ body {
   background-color: #121212;
 }
 
-h1, h3 {
-  color: rgb(125, 177, 196);
+h1 {
+  color: rgb(118, 67, 123);
+}
+
+h3 {
+  color: rgb(99, 146, 99);
+}
+
+.search-label {
+  color: rgb(182, 182, 182);
 }
